@@ -1,0 +1,27 @@
+{% extends "juice/templates/index.html" %}
+{% block favicon %}
+<link rel="icon" type="image/png" href="/favicon.ico">
+{% endblock favicon %}
+
+{% block hero %}
+<section class="text-center">
+    <h1 class="heading-text" style="font-size: 50px">
+        Open the right browser at the right time
+    </h1>
+    <h3 class="title-text">
+        Open source, cross platform, and free
+    </h3>
+</section>
+<div class="explore-more text" onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})">
+    Tell me more ↓
+</div>
+{% endblock hero %}
+
+{% block footer %}
+<footer>
+    <small class="subtext">
+        <a href="https://browsers.software">browsers.software</a> © 2022
+    </small>
+</footer>
+{% endblock footer %}
+
