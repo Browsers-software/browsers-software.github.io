@@ -3,9 +3,40 @@
 <link rel="icon" type="image/png" href="/favicon.png">
 {% endblock favicon %}
 
+{% block head %}
+<style>
+.logo {
+  font-family: 'Dangrek', serif;
+  font-weight: 400;
+  font-size: 52px;
+}
+
+.heading-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 36px;
+}
+
+h1, .title-text {
+  font-family: 'Montserrat', sans-serif;
+}
+
+h2, .subtitle-text {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.text {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.subtext {
+  font-family: 'Montserrat', sans-serif;
+}
+</style>
+{% endblock head %}
+
 {% block hero %}
 <section class="text-center">
-    <h1 class="heading-text" style="font-size: 50px">
+    <h1 class="heading-text">
         Open the right browser at the right time
     </h1>
     <h3 class="title-text">

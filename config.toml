@@ -21,6 +21,7 @@ highlight_code = false
 juice_logo_path = "logo.png"
 juice_logo_name = "Browsers"
 juice_extra_menu = [
-    { title = "Github", link = "https://github.com/Browsers-software/browsers"}
+    { title = "Github", link = "https://github.com/Browsers-software/browsers"},
+    { title = "Twitter", link = "https://twitter.com/BrowsersTweets"},
 ]
 repository_url = "https://github.com/Browsers-software/browsers"
