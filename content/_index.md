@@ -14,4 +14,6 @@ sort_by = "weight"
 
 # Installation
 
-> To be announced.
+Preview release for macOS - 
+[Browsers.dmg](https://github.com/Browsers-software/browsers/releases/download/0.1.0-preview/Browsers.dmg) (Universal - Apple Silicon and Intel based Macs)
+
