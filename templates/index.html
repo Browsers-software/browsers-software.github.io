@@ -1,6 +1,6 @@
 {% extends "juice/templates/index.html" %}
 {% block favicon %}
-<link rel="icon" type="image/png" href="/favicon.ico">
+<link rel="icon" type="image/png" href="/favicon.png">
 {% endblock favicon %}
 
 {% block hero %}
@@ -11,7 +11,14 @@
     <h3 class="title-text">
         Open source, cross platform, and free
     </h3>
+
+    <video width="592" height="343" autoplay loop muted>
+        <source src="browsers.webm" type="video/webm" />
+    </video>
 </section>
+
+
+
 <div class="explore-more text" onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})">
     Tell me more ↓
 </div>
