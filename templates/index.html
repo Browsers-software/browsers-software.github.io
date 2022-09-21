@@ -42,17 +42,30 @@ h2, .subtitle-text {
     <h3 class="title-text">
         Open source, cross platform, and free
     </h3>
-
-    <video width="592" height="343" autoplay loop muted>
-        <source src="browsers.webm" type="video/webm" />
-    </video>
 </section>
 
+<video class="hero-video" width="592" height="343" autoplay loop muted>
+    <source src="browsers.webm" type="video/webm" />
+</video>
 
-
-<div class="explore-more text" onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})">
-    Tell me more ↓
+<div class="explore-more text"
+     onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})">
+    Explore More ↓
 </div>
+<style>
+    .hero section {
+        padding: 0 5rem;
+    }
+    @media screen and (max-width: 768px) {
+        .hero section {
+            padding: 0 2rem;
+        }
+
+        .hero-video {
+            display: none
+        }
+    }
+</style>
 {% endblock hero %}
 
 {% block footer %}
