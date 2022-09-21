@@ -15,5 +15,18 @@ sort_by = "weight"
 
 # Installation
 
-Preview release for macOS - 
-[Browsers.dmg](https://github.com/Browsers-software/browsers/releases/latest/download/Browsers.dmg) (Universal - Apple Silicon and Intel based Macs)
+Download for your platform
+
+ - macOS - [**Browsers.dmg**](https://github.com/Browsers-software/browsers/releases/latest/download/Browsers.dmg) (Apple Silicon and Intel based Macs)
+ - Linux - no build yet, but can be built from [source](https://github.com/Browsers-software/browsers)
+ - Windows - no plans yet, [vote if you are interested](https://github.com/Browsers-software/browsers/discussions/1)
+
+The app will prompt to set it as default browser on launch which you would need to allow.
+
+# How to Use
+
+ - By default, it lists all browsers
+ - To hide a browser, right click and choose hide
+ - To restore a hidden browser, click the bottom right menu and find it from the `Restore` submenu
+ - To move a browser up/down, right click and choose move up/down
+ - To open a link in incognito/private mode hold down shift while clicking on the browser
