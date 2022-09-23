@@ -30,7 +30,3 @@ The app will prompt to set it as default browser on launch which you would need 
  - To restore a hidden browser, click the bottom right menu and find it from the `Restore` submenu
  - To move a browser up/down, right click and choose move up/down
  - To open a link in incognito/private mode hold down shift while clicking on the browser
-
-# Known Issues
-
- - Linux: browsers installed as snaps are not fully supported
