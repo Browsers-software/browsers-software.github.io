@@ -18,7 +18,7 @@ sort_by = "weight"
 Download for your platform
 
  - macOS - [**Browsers.dmg**](https://github.com/Browsers-software/browsers/releases/latest/download/Browsers.dmg) (Apple Silicon and Intel based Macs)
- - Linux - [**browsers.zip**](https://github.com/Browsers-software/browsers/releases/latest/download/browsers_linux.zip) (arm64 and x86_64)
+ - Linux - [**browsers_linux.tar.gz**](https://github.com/Browsers-software/browsers/releases/latest/download/browsers_linux.tar.gz) (arm64 and x86_64)
  - Windows - no plans yet, [vote if you are interested](https://github.com/Browsers-software/browsers/discussions/1)
 
 The app will prompt to set it as default browser on launch which you would need to allow.
