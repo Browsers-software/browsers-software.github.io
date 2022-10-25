@@ -26,7 +26,14 @@ The app will prompt to set it as default browser on launch which you would need 
 # How to Use
 
  - By default, it lists all browsers
- - To hide a browser, right click and choose hide
+ - To hide a browser, right click and choose `Hide browser` (or browser profile)
  - To restore a hidden browser, click the bottom right menu and find it from the `Restore` submenu
- - To move a browser up/down, right click and choose move up/down
- - To open a link in incognito/private mode hold down shift while clicking on the browser
+ - To move the order of a browser up or down, right click and choose `Move up/down`
+ - To open a link in incognito/private mode hold down <kbd>⇧ Shift</kbd> while clicking on the browser
+ - You can also use keyboard to choose the browser:
+   - Select previous: <kbd>↑</kbd> or <kbd>⇧ Shift</kbd> + <kbd>⇥ Tab</kbd>
+   - Select next: <kbd>↓</kbd> or <kbd>⇥ Tab</kbd>
+   - Open in selected browser: <kbd>↵ Enter</kbd> or <kbd>Space</kbd>
+
+# Known Issues
+ - macOS Ventura 13: mouse hover effect is not shown ({{ issue(id=5) }}), however clicking still works
