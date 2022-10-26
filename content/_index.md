@@ -34,6 +34,7 @@ The app will prompt to set it as default browser on launch which you would need 
    - Select previous: <kbd>↑</kbd> or <kbd>⇧ Shift</kbd> + <kbd>⇥ Tab</kbd>
    - Select next: <kbd>↓</kbd> or <kbd>⇥ Tab</kbd>
    - Open in selected browser: <kbd>↵ Enter</kbd> or <kbd>Space</kbd>
+ - To copy web address to clipboard, click on the web address in the bottom
 
 # Known Issues
  - macOS Ventura 13: mouse hover effect is not shown ({{ issue(id=5) }}), however clicking still works
