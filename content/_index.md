@@ -13,7 +13,7 @@ sort_by = "weight"
 - Supports Firefox containers (also need [Open external links in a container](https://addons.mozilla.org/en-US/firefox/addon/open-url-in-container/) extension installed until [#1726634](https://bugzilla.mozilla.org/show_bug.cgi?id=1726634) is resolved)
 - Runs on Mac and Linux (Windows is also considered if there is interest)
 
-# Installation
+## Installation
 
 Download for your platform
 
@@ -23,7 +23,7 @@ Download for your platform
 
 The app will prompt to set it as default browser on launch which you would need to allow.
 
-# How to Use
+## How to Use
 
  - By default, it lists all browsers
  - To hide a browser, right click and choose `Hide browser` (or browser profile)
@@ -35,3 +35,13 @@ The app will prompt to set it as default browser on launch which you would need 
    - Select next: <kbd>↓</kbd> or <kbd>⇥ Tab</kbd>
    - Open in selected browser: <kbd>↵ Enter</kbd> or <kbd>Space</kbd>
  - To copy web address to clipboard, click on the web address in the bottom
+
+## FAQ
+
+**Q: Firefox shows two profiles: `default` and `default-release`?**
+
+**A:** Modern Firefox versions use `default-release` as the default profile for stable Firefox release,
+so you can hide the `default` profile by right-clicking and choosing `Hide Firefox default`. 
+
+If you want to double check which Firefox profile is the default one, open Firefox and enter `about:profiles`
+in the address bar and find the profile with `Default Profile` set to `yes`.
