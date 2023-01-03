@@ -14,6 +14,11 @@ sort_by = "weight"
   need [Open external links in a container](https://addons.mozilla.org/en-US/firefox/addon/open-url-in-container/)
   extension installed until [#1726634](https://bugzilla.mozilla.org/show_bug.cgi?id=1726634) is resolved)
 - Runs on Mac and Linux (Windows is also considered if there is interest)
+- Supports opening following desktop applications directly:
+    - Linear
+    - Notion
+    - Spotify
+    - Zoom
 
 # Installation
 
