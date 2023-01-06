@@ -18,6 +18,7 @@ sort_by = "weight"
     - Linear
     - Notion
     - Spotify
+    - Telegram
     - Zoom
 
 # Installation
