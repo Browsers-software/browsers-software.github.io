@@ -15,6 +15,7 @@ sort_by = "weight"
   extension installed until [#1726634](https://bugzilla.mozilla.org/show_bug.cgi?id=1726634) is resolved)
 - Runs on Mac and Linux (Windows is also considered [if there is interest](https://github.com/Browsers-software/browsers/discussions/1))
 - Supports opening following desktop applications directly:
+    - Figma
     - Linear
     - Notion
     - Spotify
