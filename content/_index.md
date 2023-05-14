@@ -13,8 +13,8 @@ sort_by = "weight"
 - Supports Firefox containers (also
   need [Open external links in a container](https://addons.mozilla.org/en-US/firefox/addon/open-url-in-container/)
   extension installed until [#1726634](https://bugzilla.mozilla.org/show_bug.cgi?id=1726634) is resolved)
-- Runs on Mac and Linux (Windows is also considered [if there is interest](https://github.com/Browsers-software/browsers/discussions/1))
-- Supports opening following desktop applications directly:
+- Runs on Mac, Linux and Windows
+- Supports opening following desktop applications directly (not supported in Windows at the moment):
     - Figma
     - Linear
     - Notion
@@ -28,9 +28,8 @@ Download for your platform
 
 - macOS - [**Browsers.dmg**](https://github.com/Browsers-software/browsers/releases/latest/download/Browsers.dmg) (Apple
   Silicon and Intel based Macs)
-- Linux - [**browsers_linux.tar.gz**](https://github.com/Browsers-software/browsers/releases/latest/download/browsers_linux.tar.gz) (
-  arm64 and x86_64)
-- Windows - no plans yet, [vote if you are interested](https://github.com/Browsers-software/browsers/discussions/1)
+- Linux - [**browsers_linux.tar.gz**](https://github.com/Browsers-software/browsers/releases/latest/download/browsers_linux.tar.gz) (arm64 and x86_64)
+- Windows - [**Browsers_windows.zip**](https://github.com/Browsers-software/browsers/releases/latest/download/Browsers_windows.zip) (arm64 and x86_64)
 
 The app will prompt to set it as default browser on launch which you would need to allow.
 
