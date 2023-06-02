@@ -7,98 +7,212 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
 <style>
-.logo {
-  font-family: 'Dangrek', serif;
-  font-weight: 400;
-  font-size: 52px;
-}
+  .logo {
+    font-family: 'Dangrek', serif;
+    font-weight: 400;
+    font-size: 52px;
+  }
 
-.heading-text {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 36px;
-}
+  .heading-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+  }
 
-h1, .title-text {
-  font-family: 'Montserrat', sans-serif;
-}
+  h1, .title-text {
+    font-family: 'Montserrat', sans-serif;
+  }
 
-h2, .subtitle-text {
-  font-family: 'Montserrat', sans-serif;
-}
+  h2, .subtitle-text {
+    font-family: 'Montserrat', sans-serif;
+  }
 
-.text {
-  font-family: 'Montserrat', sans-serif;
-}
+  .text {
+    font-family: 'Montserrat', sans-serif;
+  }
 
-.subtext {
-  font-family: 'Montserrat', sans-serif;
-}
+  .subtext {
+    font-family: 'Montserrat', sans-serif;
+  }
 
-kbd {
-  background-color: #eee;
-  border-radius: 3px;
-  border: 1px solid #b4b4b4;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 2px 0 0 rgba(255, 255, 255, .7) inset;
-  color: #333;
-  display: inline-block;
-  font-size: .85em;
-  font-weight: 700;
-  line-height: 1;
-  padding: 2px 4px;
-  white-space: nowrap;
-}
+  kbd {
+    background-color: #eee;
+    border-radius: 3px;
+    border: 1px solid #b4b4b4;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 2px 0 0 rgba(255, 255, 255, .7) inset;
+    color: #333;
+    display: inline-block;
+    font-size: .85em;
+    font-weight: 700;
+    line-height: 1;
+    padding: 2px 4px;
+    white-space: nowrap;
+  }
 </style>
+
+<script>
+  let PLATFORMS = {
+    linux: {
+      downloadUrl: "https://github.com/Browsers-software/browsers/releases/latest/download/browsers_linux.tar.gz",
+      icon: "fa-linux",
+      downloadLabel: "Download for Linux",
+      downloadLabelShort: "Linux",
+      downloadSubtitle: "Compatible with most linux-based desktop operating systems on armv7, arm64 and x86_64 platforms"
+    },
+    mac: {
+      downloadUrl: "https://github.com/Browsers-software/browsers/releases/latest/download/Browsers.dmg",
+      icon: "fa-apple",
+      downloadLabel: "Download for macOS",
+      downloadLabelShort: "macOS",
+      downloadSubtitle: "Compatible with macOS 10.7+ on Apple Silicon and Intel platforms"
+    },
+    windows: {
+      downloadUrl: "https://github.com/Browsers-software/browsers/releases/latest/download/Browsers_windows.zip",
+      icon: "fa-windows",
+      downloadLabel: "Download for Windows",
+      downloadLabelShort: "Windows",
+      downloadSubtitle: "Compatible with Windows 7+ on arm64 and x86_64 platforms"
+    }
+  };
+
+  let DOWNLOAD_BUTTONS = createDownloadButtons();
+
+  function isUserAgentNotDesktop() {
+    let userAgentStr = navigator.userAgent;
+    // credit to Timothy Huang for this regex test:
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgentStr);
+  }
+
+  function getSupportedDownloads() {
+    // one day migrate to userAgentData
+    // navigator.userAgentData.getHighEntropyValues(["platform"]).then(ua => { console.log(ua) });
+
+    let userAgentStr = navigator.userAgent;
+
+    let isNotDesktop = isUserAgentNotDesktop();
+    let isMac = userAgentStr.indexOf("Macintosh") !== -1;
+    let isWindows = userAgentStr.indexOf("Windows") !== -1;
+    let isLinux = userAgentStr.indexOf("Linux") !== -1;
+    let isChromeOs = userAgentStr.indexOf("CrOS") !== -1;
+
+    if (isNotDesktop) {
+      return Object.values(PLATFORMS);
+    } else if (isMac) {
+      return Array.of(PLATFORMS.mac);
+    } else if (isWindows) {
+      return Array.of(PLATFORMS.windows)
+    } else if (isLinux || isChromeOs) {
+      return Array.of(PLATFORMS.linux);
+    } else {
+      return Object.values(PLATFORMS);
+    }
+  }
+
+  function convertStringToHTML(htmlString) {
+    const parser = new DOMParser();
+    const html = parser.parseFromString(htmlString, 'text/html');
+    return html.body.firstChild;
+  }
+
+  function createDownloadButtons() {
+    let supportedDownloads = getSupportedDownloads()
+
+    if (supportedDownloads.length === 1) {
+      let supportedDownload = supportedDownloads[0];
+      const containerElement = document.createElement("div");
+
+      let htmlString =
+          `
+                <div>
+                    <a class="hero-download-btn" download target="_blank"
+                    rel="noopener"
+                       href="${supportedDownload.downloadUrl}">
+                        <i class="fa-brands ${supportedDownload.icon}"></i>
+                        ${supportedDownload.downloadLabel}
+                    </a>
+                    <div>${supportedDownload.downloadSubtitle}</div>
+                </div>
+                `;
+
+      let downloadElement = convertStringToHTML(htmlString);
+      containerElement.appendChild(downloadElement);
+      return containerElement
+    } else {
+      let containerHtmlString =
+          `
+                <div>
+                </div>
+                `;
+      const containerElement = convertStringToHTML(containerHtmlString);
+
+      supportedDownloads.forEach(supportedDownload => {
+        let htmlString =
+            `
+                    <a class="hero-download-btn" download target="_blank" rel="noopener"
+                       href="${supportedDownload.downloadUrl}">
+                        <i class="fa-brands ${supportedDownload.icon}"></i>
+                        ${supportedDownload.downloadLabelShort}
+                    </a>
+                    `;
+
+
+        let downloadElement = convertStringToHTML(htmlString);
+        containerElement.appendChild(downloadElement);
+      })
+      return containerElement;
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", (event) => {
+    let downloadContainerElement = document.getElementById("download-container");
+    downloadContainerElement.appendChild(DOWNLOAD_BUTTONS);
+  });
+</script>
 {% endblock head %}
 
 {% block hero %}
 <section class="text-center">
-    <h1 class="heading-text">
-        Open the right browser at the right time
-    </h1>
-    <h3 class="title-text">
-        Open source, cross platform, and free
-    </h3>
-    <div>
-        <a class="hero-download-btn"
-           href="https://github.com/Browsers-software/browsers/releases/latest/download/Browsers.dmg"><i class="fa-brands fa-apple"></i> macOS</a>
+  <h1 class="heading-text">
+    Open the right browser at the right time
+  </h1>
+  <h3 class="title-text">
+    Open source, cross platform, and free
+  </h3>
 
-        <a class="hero-download-btn"
-           href="https://github.com/Browsers-software/browsers/releases/latest/download/browsers_linux.tar.gz"><i class="fa-brands fa-linux"></i> Linux</a>
-
-        <a class="hero-download-btn"
-           href="https://github.com/Browsers-software/browsers/releases/latest/download/Browsers_windows.zip"><i class="fa-brands fa-windows"></i> Windows</a>
-    </div>
+  <div id="download-container">
+  </div>
+  <div>See below for other platforms</div>
 </section>
 
 <video class="hero-video" width="592" height="343" autoplay loop muted>
-    <source src="browsers.webm" type="video/webm" />
+  <source src="browsers.webm" type="video/webm"/>
 </video>
 
 <div class="explore-more text"
      onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})">
-    Tell Me More ↓
+  Tell Me More ↓
 </div>
 <style>
-    .hero section {
-        padding: 0 5rem;
-    }
-    @media screen and (max-width: 768px) {
-        .hero section {
-            padding: 0 2rem;
-        }
+  .hero section {
+    padding: 0 5rem;
+  }
 
-        .hero-video {
-            display: none
-        }
+  @media screen and (max-width: 768px) {
+    .hero section {
+      padding: 0 2rem;
     }
+
+    .hero-video {
+      display: none
+    }
+  }
 </style>
 {% endblock hero %}
 
 {% block footer %}
 <footer>
-    <small class="subtext">
-        <a href="https://browsers.software">browsers.software</a> © 2023
-    </small>
+  <small class="subtext">
+    <a href="https://browsers.software">browsers.software</a> © 2023
+  </small>
 </footer>
 {% endblock footer %}
 
