@@ -47,11 +47,26 @@
     padding: 2px 4px;
     white-space: nowrap;
   }
+
+  #download-container code {
+    display: block;
+    margin: 3px;
+    border: 1px solid black;
+    padding: 3px;
+    background-color: #543631;
+    color: #FED43F;
+  }
+
+  code i {
+    margin-left: 5px;
+    display: inline-block;
+  }
 </style>
 
 <script>
   let PLATFORMS = {
     linux: {
+      platform: "linux",
       downloadUrl: "https://github.com/Browsers-software/browsers/releases/latest/download/browsers_linux.tar.gz",
       icon: "fa-linux",
       downloadLabel: "Download for Linux",
@@ -59,6 +74,7 @@
       downloadSubtitle: "Compatible with most linux-based desktop operating systems on armv7, arm64 and x86_64 platforms"
     },
     mac: {
+      platform: "mac",
       downloadUrl: "https://github.com/Browsers-software/browsers/releases/latest/download/Browsers.dmg",
       icon: "fa-apple",
       downloadLabel: "Download for macOS",
@@ -66,6 +82,7 @@
       downloadSubtitle: "Compatible with macOS 10.7+ on Apple Silicon and Intel platforms"
     },
     windows: {
+      platform: "windows",
       downloadUrl: "https://github.com/Browsers-software/browsers/releases/latest/download/Browsers_windows.zip",
       icon: "fa-windows",
       downloadLabel: "Download for Windows",
@@ -113,6 +130,12 @@
     return html.body.firstChild;
   }
 
+  function copyToClipboard(copyButtonElement) {
+    let codeElement = copyButtonElement.parentElement;
+    let code = codeElement.textContent.trim();
+    navigator.clipboard.writeText(code);
+  }
+
   function createDownloadButtons() {
     let supportedDownloads = getSupportedDownloads()
 
@@ -135,6 +158,18 @@
 
       let downloadElement = convertStringToHTML(htmlString);
       containerElement.appendChild(downloadElement);
+
+      if (supportedDownload.platform === "mac") {
+        let alternativeHtmlString =
+            `
+            <div>
+              Alternatively install via Homebrew and keep the app updated:
+              <code>brew install --cask browsers-software/tap/browsers<i class="fa-solid fa-copy" style="cursor:pointer" title="Copy" onclick="copyToClipboard(this)"></i></code>
+            </div>
+            `;
+        let alternativeInstructionsElement = convertStringToHTML(alternativeHtmlString);
+        containerElement.appendChild(alternativeInstructionsElement);
+      }
       return containerElement
     } else {
       let containerHtmlString =
