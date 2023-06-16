@@ -18,6 +18,7 @@ sort_by = "weight"
     - Figma
     - Linear
     - Notion
+    - Slack
     - Spotify
     - Telegram
     - Zoom
