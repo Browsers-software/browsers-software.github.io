@@ -14,7 +14,7 @@ sort_by = "weight"
   need [Open external links in a container](https://addons.mozilla.org/en-US/firefox/addon/open-url-in-container/)
   extension installed until [#1726634](https://bugzilla.mozilla.org/show_bug.cgi?id=1726634) is resolved)
 - Runs on Mac, Linux and Windows
-- Supports opening following desktop applications directly (not supported in Windows at the moment):
+- Supports opening following desktop applications directly:
     - Figma
     - Linear
     - Notion
@@ -29,10 +29,16 @@ Download for your platform
 
 - macOS - [**Browsers.dmg**](https://github.com/Browsers-software/browsers/releases/latest/download/Browsers.dmg) (Apple
   Silicon and Intel based Macs)
-- Linux - [**browsers_linux.tar.gz**](https://github.com/Browsers-software/browsers/releases/latest/download/browsers_linux.tar.gz) (arm64 and x86_64)
-- Windows - [**Browsers_windows.zip**](https://github.com/Browsers-software/browsers/releases/latest/download/Browsers_windows.zip) (arm64 and x86_64)
+- Linux
+  - DEB package
+    - [**browsers_amd64.deb**](https://github.com/Browsers-software/browsers/releases/latest/download/browsers_amd64.deb) (x86_64)
+    - [**browsers_arm64.deb**](https://github.com/Browsers-software/browsers/releases/latest/download/browsers_arm64.deb) (arm64)
+    - [**browsers_armhf.deb**](https://github.com/Browsers-software/browsers/releases/latest/download/browsers_armhf.deb) (armv7l)
+  - Universal - [**browsers_linux.tar.gz**](https://github.com/Browsers-software/browsers/releases/latest/download/browsers_linux.tar.gz) (x86_64, arm64 and armv7l)
+- Windows - [**Browsers_windows.zip**](https://github.com/Browsers-software/browsers/releases/latest/download/Browsers_windows.zip) (x86_64 and arm64)
 
-The app will prompt to set it as default browser on launch which you would need to allow.
+On macOS the app will prompt to set it as default browser on launch which you would need to allow.
+On Windows and Linux, just set Browsers as default browser through common system settings.
 
 # How to Use
 
