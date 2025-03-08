@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Browsers - Open the Right Browser at the Right Time</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+<link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dangrek&family=Montserrat:wght@400;500;600;700&display=block"
+      rel="stylesheet">
+
+<style>
+  :root {
+    /* Primary theme color */
+    --primary-color: #FED43F;
+    /* Primary theme text color */
+    --primary-text-color: #543631;
+    /* Primary theme link color */
+    --primary-link-color: #b90d0d;
+    /* Secondary color: the background body color */
+    --secondary-color: #fcfaf6;
+    --secondary-text-color: #303030;
+    /* Highlight text color of table of content */
+    --toc-highlight-text-color: #d46e13;
+  }
+
+  .hero-download-btn {
+    display: inline-block;
+    border: 1px solid black;
+    margin-right: 10px;
+    border-radius: 3px;
+    padding: 10px;
+    background-color: #543631;
+    color: #FED43F;
+    line-height: 2em;
+    font-size: 1.3em;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .download-btn {
+    display: inline-block;
+    border: 1px solid black;
+    margin-right: 10px;
+    border-radius: 3px;
+    padding: 5px;
+    background-color: #543631;
+    color: #FED43F;
+    line-height: 1.5em;
+    font-size: 1em;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+  }
+</style>
+    <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/normalize.css">
+    <link rel="stylesheet" href="https://browsers.software/juice.css">
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+<style>
+  .logo {
+    font-family: 'Dangrek', serif;
+    font-weight: 400;
+    font-size: 52px;
+  }
+
+  .heading-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+  }
+
+  h1, .title-text {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  h2, .subtitle-text {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .text {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .subtext {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  kbd {
+    background-color: #eee;
+    border-radius: 3px;
+    border: 1px solid #b4b4b4;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 2px 0 0 rgba(255, 255, 255, .7) inset;
+    color: #333;
+    display: inline-block;
+    font-size: .85em;
+    font-weight: 700;
+    line-height: 1;
+    padding: 2px 4px;
+    white-space: nowrap;
+  }
+
+  #download-container code {
+    display: block;
+    margin: 3px;
+    border: 1px solid black;
+    padding: 3px;
+    background-color: #543631;
+    color: #FED43F;
+  }
+
+  code i {
+    margin-left: 5px;
+    display: inline-block;
+  }
+</style>
+
+<script>
+  let PLATFORMS = {
+    linux: {
+      platform: "linux",
+      downloadUrl: "https://github.com/Browsers-software/browsers/releases/latest/download/browsers_linux.tar.gz",
+      icon: "fa-linux",
+      downloadLabel: "Download for Linux",
+      downloadLabelShort: "Linux",
+      downloadSubtitle: "Compatible with most linux-based desktop operating systems on armv7, arm64 and x86_64 platforms"
+    },
+    mac: {
+      platform: "mac",
+      downloadUrl: "https://github.com/Browsers-software/browsers/releases/latest/download/Browsers.dmg",
+      icon: "fa-apple",
+      downloadLabel: "Download for macOS",
+      downloadLabelShort: "macOS",
+      downloadSubtitle: "Compatible with macOS 10.7+ on Apple Silicon and Intel platforms"
+    },
+    windows: {
+      platform: "windows",
+      downloadUrl: "https://github.com/Browsers-software/browsers/releases/latest/download/Browsers_windows.zip",
+      icon: "fa-windows",
+      downloadLabel: "Download for Windows",
+      downloadLabelShort: "Windows",
+      downloadSubtitle: "Compatible with Windows 7+ on arm64 and x86_64 platforms"
+    }
+  };
+
+  let DOWNLOAD_BUTTONS = createDownloadButtons();
+
+  function isUserAgentNotDesktop() {
+    let userAgentStr = navigator.userAgent;
+    // credit to Timothy Huang for this regex test:
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgentStr);
+  }
+
+  function getSupportedDownloads() {
+    // one day migrate to userAgentData
+    // navigator.userAgentData.getHighEntropyValues(["platform"]).then(ua => { console.log(ua) });
+
+    let userAgentStr = navigator.userAgent;
+
+    let isNotDesktop = isUserAgentNotDesktop();
+    let isMac = userAgentStr.indexOf("Macintosh") !== -1;
+    let isWindows = userAgentStr.indexOf("Windows") !== -1;
+    let isLinux = userAgentStr.indexOf("Linux") !== -1;
+    let isChromeOs = userAgentStr.indexOf("CrOS") !== -1;
+
+    if (isNotDesktop) {
+      return Object.values(PLATFORMS);
+    } else if (isMac) {
+      return Array.of(PLATFORMS.mac);
+    } else if (isWindows) {
+      return Array.of(PLATFORMS.windows)
+    } else if (isLinux || isChromeOs) {
+      return Array.of(PLATFORMS.linux);
+    } else {
+      return Object.values(PLATFORMS);
+    }
+  }
+
+  function convertStringToHTML(htmlString) {
+    const parser = new DOMParser();
+    const html = parser.parseFromString(htmlString, 'text/html');
+    return html.body.firstChild;
+  }
+
+  function copyToClipboard(copyButtonElement) {
+    let codeElement = copyButtonElement.parentElement;
+    let code = codeElement.textContent.trim();
+    navigator.clipboard.writeText(code);
+  }
+
+  function createDownloadButtons() {
+    let supportedDownloads = getSupportedDownloads()
+
+    if (supportedDownloads.length === 1) {
+      let supportedDownload = supportedDownloads[0];
+      const containerElement = document.createElement("div");
+
+      let htmlString =
+          `
+                <div>
+                    <a class="hero-download-btn" download target="_blank"
+                    rel="noopener"
+                       href="${supportedDownload.downloadUrl}">
+                        <i class="fa-brands ${supportedDownload.icon}"></i>
+                        ${supportedDownload.downloadLabel}
+                    </a>
+                    <div>${supportedDownload.downloadSubtitle}</div>
+                </div>
+                `;
+
+      let downloadElement = convertStringToHTML(htmlString);
+      containerElement.appendChild(downloadElement);
+
+      if (supportedDownload.platform === "mac") {
+        let alternativeHtmlString =
+            `
+            <div>
+              Alternatively install via Homebrew and keep the app updated:
+              <code>brew install --cask browsers-software/tap/browsers<i class="fa-solid fa-copy" style="cursor:pointer" title="Copy" onclick="copyToClipboard(this)"></i></code>
+            </div>
+            `;
+        let alternativeInstructionsElement = convertStringToHTML(alternativeHtmlString);
+        containerElement.appendChild(alternativeInstructionsElement);
+      } else if (supportedDownload.platform === "linux") {
+        let alternativeHtmlString =
+            `
+            <div>
+              <div>If you use a debian-based distribution you can install via deb package:</div>
+              <a class="download-btn" download target="_blank" rel="noopener"
+                 href="https://github.com/Browsers-software/browsers/releases/latest/download/browsers_amd64.deb">
+                  <i class="fa-brands fa-linux"></i>
+                  .DEB (64-bit)
+              </a>
+              <a class="download-btn" download target="_blank" rel="noopener"
+                 href="https://github.com/Browsers-software/browsers/releases/latest/download/browsers_arm64.deb">
+                  <i class="fa-brands fa-linux"></i>
+                  .DEB (64-bit ARM)
+              </a>
+              <a class="download-btn" download target="_blank" rel="noopener"
+                 href="https://github.com/Browsers-software/browsers/releases/latest/download/browsers_armhf.deb">
+                  <i class="fa-brands fa-linux"></i>
+                  .DEB (32-bit ARM)
+              </a>
+
+              <div>If you use a rpm-based distribution you can install via rpm package:</div>
+              <a class="download-btn" download target="_blank" rel="noopener"
+                 href="https://github.com/Browsers-software/browsers/releases/latest/download/browsers.x86_64.rpm">
+                  <i class="fa-brands fa-linux"></i>
+                  .RPM (64-bit)
+              </a>
+              <a class="download-btn" download target="_blank" rel="noopener"
+                 href="https://github.com/Browsers-software/browsers/releases/latest/download/browsers.aarch64.rpm">
+                  <i class="fa-brands fa-linux"></i>
+                  .RPM (64-bit ARM)
+              </a>
+              <a class="download-btn" download target="_blank" rel="noopener"
+                 href="https://github.com/Browsers-software/browsers/releases/latest/download/browsers.armhfp.rpm">
+                  <i class="fa-brands fa-linux"></i>
+                  .RPM (32-bit ARM)
+              </a>
+            </div>
+            `;
+        let alternativeInstructionsElement = convertStringToHTML(alternativeHtmlString);
+        containerElement.appendChild(alternativeInstructionsElement);
+      }
+      return containerElement
+    } else {
+      let containerHtmlString =
+          `
+                <div>
+                </div>
+                `;
+      const containerElement = convertStringToHTML(containerHtmlString);
+
+      supportedDownloads.forEach(supportedDownload => {
+        let htmlString =
+            `
+                    <a class="hero-download-btn" download target="_blank" rel="noopener"
+                       href="${supportedDownload.downloadUrl}">
+                        <i class="fa-brands ${supportedDownload.icon}"></i>
+                        ${supportedDownload.downloadLabelShort}
+                    </a>
+                    `;
+
+
+        let downloadElement = convertStringToHTML(htmlString);
+        containerElement.appendChild(downloadElement);
+      })
+      return containerElement;
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", (event) => {
+    let downloadContainerElement = document.getElementById("download-container");
+    downloadContainerElement.appendChild(DOWNLOAD_BUTTONS);
+  });
+</script>
+
+</head>
+
+<body>
+    
+
+    <header class="pos-absolute" style="background-color: transparent">
+        
+
+<a href="https:&#x2F;&#x2F;browsers.software&#x2F;">
+    <div class="logo">
+        <img src="https://browsers.software/logo.png" alt="logo">
+        Browsers
+    </div>
+</a>
+
+<nav>
+    
+    
+        
+        <a class="nav-item subtitle-text" href="https:&#x2F;&#x2F;github.com&#x2F;Browsers-software&#x2F;browsers">Github</a>
+        
+        <a class="nav-item subtitle-text" href="https:&#x2F;&#x2F;twitter.com&#x2F;BrowsersTweets">Twitter</a>
+        
+    
+</nav>
+
+    </header>
+
+    <div class="hero">
+        
+<section class="text-center">
+  <h1 class="heading-text">
+    Open the right browser at the right time
+  </h1>
+  <h3 class="title-text">
+    Open source, cross platform, and free
+  </h3>
+
+  <div id="download-container">
+  </div>
+  <div>See below for other platforms</div>
+</section>
+
+<video class="hero-video" width="592" height="343" autoplay loop muted>
+  <source src="browsers.webm" type="video/webm"/>
+</video>
+
+<div class="explore-more text"
+     onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})">
+  Tell Me More ↓
+</div>
+<style>
+  .hero section {
+    padding: 0 5rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    .hero section {
+      padding: 0 2rem;
+    }
+
+    .hero-video {
+      display: none
+    }
+  }
+</style>
+
+    </div>
+
+    
+
+    <main>
+        
+        
+        
+        
+        
+        <div class="toc">
+            <div class="toc-sticky">
+                
+                <div class="toc-item">
+                    <a class="subtext" href="https://browsers.software/#browsers">Browsers</a>
+                </div>
+                
+                
+                <div class="toc-item">
+                    <a class="subtext" href="https://browsers.software/#installation">Installation</a>
+                </div>
+                
+                
+                <div class="toc-item">
+                    <a class="subtext" href="https://browsers.software/#how-to-use">How to Use</a>
+                </div>
+                
+                
+                <div class="toc-item">
+                    <a class="subtext" href="https://browsers.software/#faq">FAQ</a>
+                </div>
+                
+                
+            </div>
+        </div>
+        
+        
+
+        <div class="content text">
+            
+            <div id="features" class="heading-text">Overview</div>
+            <h1 id="browsers">Browsers</h1>
+<p><strong>Browsers</strong> is an intuitive context menu that pops up when you press a link in an app other than a web browser.</p>
+<ul>
+<li>Does not run in the background</li>
+<li>Non-obtrusive design, looking more like a context menu</li>
+<li>Supports user profiles for browsers based on Chrome and Firefox</li>
+<li>Supports Firefox containers (also
+need <a href="https://addons.mozilla.org/en-US/firefox/addon/open-url-in-container/">Open external links in a container</a>
+extension installed until <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1726634">#1726634</a> is resolved)</li>
+<li>Runs on Mac, Linux and Windows</li>
+<li>Supports opening following desktop applications directly:
+<ul>
+<li>Figma</li>
+<li>Linear</li>
+<li>Notion</li>
+<li>Slack</li>
+<li>Spotify</li>
+<li>Telegram</li>
+<li>Zoom</li>
+</ul>
+</li>
+</ul>
+<h1 id="installation">Installation</h1>
+<p>Download for your platform</p>
+<ul>
+<li>macOS - <a href="https://github.com/Browsers-software/browsers/releases/latest/download/Browsers.dmg"><strong>Browsers.dmg</strong></a> (Apple
+Silicon and Intel based Macs)</li>
+<li>Linux
+<ul>
+<li>DEB package
+<ul>
+<li><a href="https://github.com/Browsers-software/browsers/releases/latest/download/browsers_amd64.deb"><strong>browsers_amd64.deb</strong></a> (x86_64)</li>
+<li><a href="https://github.com/Browsers-software/browsers/releases/latest/download/browsers_arm64.deb"><strong>browsers_arm64.deb</strong></a> (arm64)</li>
+<li><a href="https://github.com/Browsers-software/browsers/releases/latest/download/browsers_armhf.deb"><strong>browsers_armhf.deb</strong></a> (armv7l)</li>
+</ul>
+</li>
+<li>RPM package
+<ul>
+<li><a href="https://github.com/Browsers-software/browsers/releases/latest/download/browsers.x86_64.rpm"><strong>browsers.x86_64.rpm</strong></a> (x86_64)</li>
+<li><a href="https://github.com/Browsers-software/browsers/releases/latest/download/browsers.aarch64.rpm"><strong>browsers.aarch64.rpm</strong></a> (arm64)</li>
+<li><a href="https://github.com/Browsers-software/browsers/releases/latest/download/browsers.armhfp.rpm"><strong>browsers.armhfp.rpm</strong></a> (armv7l)</li>
+</ul>
+</li>
+<li>Universal - <a href="https://github.com/Browsers-software/browsers/releases/latest/download/browsers_linux.tar.gz"><strong>browsers_linux.tar.gz</strong></a> (x86_64, arm64 and armv7l)</li>
+</ul>
+</li>
+<li>Windows - <a href="https://github.com/Browsers-software/browsers/releases/latest/download/Browsers_windows.zip"><strong>Browsers_windows.zip</strong></a> (x86_64 and arm64)</li>
+</ul>
+<p>On macOS the app will prompt to set it as default browser on launch which you would need to allow.
+On Windows and Linux, just set Browsers as default browser through common system settings.</p>
+<h1 id="how-to-use">How to Use</h1>
+<ul>
+<li>By default, it lists all browsers</li>
+<li>To hide a browser, right click and choose <code>Hide browser</code> (or browser profile)</li>
+<li>To restore a hidden browser, click the bottom right menu and find it from the <code>Restore</code> submenu</li>
+<li>To move the order of a browser up or down, right click and choose <code>Move up/down</code></li>
+<li>To open a link in incognito/private mode hold down <kbd>⇧ Shift</kbd> while clicking on the browser</li>
+<li>You can also use keyboard to choose the browser:
+<ul>
+<li>Select previous: <kbd>↑</kbd> or <kbd>⇧ Shift</kbd> + <kbd>⇥ Tab</kbd></li>
+<li>Select next: <kbd>↓</kbd> or <kbd>⇥ Tab</kbd></li>
+<li>Open in selected browser: <kbd>↵ Enter</kbd> or <kbd>Space</kbd></li>
+</ul>
+</li>
+<li>To copy web address to clipboard, click on the web address in the bottom</li>
+</ul>
+<h1 id="faq">FAQ</h1>
+<p><strong>Q: Firefox shows two profiles: <code>default</code> and <code>default-release</code>?</strong></p>
+<p><strong>A:</strong> Modern Firefox versions use <code>default-release</code> as the default profile for stable Firefox release,
+so you can hide the <code>default</code> profile by right-clicking and choosing <code>Hide Firefox default</code>.</p>
+<p>If you want to double check which Firefox profile is the default one, open Firefox and enter <code>about:profiles</code>
+in the address bar and find the profile with <code>Default Profile</code> set to <code>yes</code>.</p>
+
+            
+        </div>
+
+        
+        
+    </main>
+
+    
+<footer>
+  <small class="subtext">
+    © <a href="https://browsers.software">browsers.software</a><br>
+  </small>
+</footer>
+
+</body>
+<script>
+    function highlightNav(heading) {
+        let pathname = location.pathname;
+        document.querySelectorAll(".toc a").forEach((item) => {
+            item.classList.remove("active");
+        });
+        document.querySelector(".toc a[href$='" + pathname + "#" + heading + "']").classList.add("active");
+    }
+
+    let currentHeading = "";
+    window.onscroll = function () {
+        let h = document.querySelectorAll("h1,h2,h3,h4,h5,h6");
+        let elementArr = [];
+
+        h.forEach(item => {
+            if (item.id !== "") {
+                elementArr[item.id] = item.getBoundingClientRect().top;
+            }
+        });
+        elementArr.sort();
+        for (let key in elementArr) {
+            if (!elementArr.hasOwnProperty(key)) {
+                continue;
+            }
+            if (elementArr[key] > 0 && elementArr[key] < 300) {
+                if (currentHeading !== key) {
+                    highlightNav(key);
+                    currentHeading = key;
+                }
+                break;
+            }
+        }
+    }
+</script>
+
+</html>
