@@ -4,7 +4,7 @@ Install zola https://www.getzola.org/documentation/getting-started/installation/
 
 Fetch all, including themes/juice submodule
 
-    git pull --recurse-submodules 
+    git pull --recurse-submodules
 
 Serve at localhost for testing
 

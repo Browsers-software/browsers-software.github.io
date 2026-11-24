@@ -9,18 +9,22 @@ sort_by = "weight"
 
 - Does not run in the background
 - Non-obtrusive design, looking more like a context menu
-- Supports user profiles for browsers based on Chrome and Firefox
+- Supports user profiles for browsers based on Chrome, Firefox and Ladybird
 - Supports Firefox containers (also
   need [Open external links in a container](https://addons.mozilla.org/en-US/firefox/addon/open-url-in-container/)
   extension installed until [#1726634](https://bugzilla.mozilla.org/show_bug.cgi?id=1726634) is resolved)
 - Runs on Mac, Linux and Windows
 - Supports opening following desktop applications directly:
+    - Discord
     - Figma
+    - Freetube
     - Linear
+    - Mimestream
     - Notion
     - Slack
     - Spotify
     - Telegram
+    - Workflowy
     - Zoom
 
 # Installation
@@ -47,13 +51,13 @@ On Windows and Linux, just set Browsers as default browser through common system
 # How to Use
 
 - By default, it lists all browsers
-- To hide a browser, right click and choose `Hide browser` (or browser profile)
+- To hide a browser, right click and choose `Hide browser` (or browser profile) or drag to bottom area
 - To restore a hidden browser, click the bottom right menu and find it from the `Restore` submenu
-- To move the order of a browser up or down, right click and choose `Move up/down`
+- To move the order of a browser up or down, right click and choose `Move up/down` or drag-drop
 - To open a link in incognito/private mode hold down <kbd>⇧ Shift</kbd> while clicking on the browser
 - You can also use keyboard to choose the browser:
-    - Select previous: <kbd>↑</kbd> or <kbd>⇧ Shift</kbd> + <kbd>⇥ Tab</kbd>
-    - Select next: <kbd>↓</kbd> or <kbd>⇥ Tab</kbd>
+    - Select previous: <kbd>↑</kbd>
+    - Select next: <kbd>↓</kbd>
     - Open in selected browser: <kbd>↵ Enter</kbd> or <kbd>Space</kbd>
 - To copy web address to clipboard, click on the web address in the bottom
 
